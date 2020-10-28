@@ -6,7 +6,7 @@
 #    By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2020/02/26 15:48:26 by ivanrosic     #+#   ##    ##    #+#       #
-#    Updated: 2020/09/12 22:51:12 by user42      ###    #+. /#+    ###.fr      #
+#    Updated: 2020/10/27 14:17:22 by user42      ###    #+. /#+    ###.fr      #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -23,6 +23,9 @@ PATH_OBJ		=	objs
 SRC_LIST		=	parsing/ft_parse.c			\
 					parsing/ft_struct.c			\
 					parsing/ft_open.c			\
+					parsing/ft_mlx.c			\
+					parsing/ft_map_char_to_int.c\
+					parsing/ft_math.c			\
 
 INCS_LIST		=	cub.h
 
