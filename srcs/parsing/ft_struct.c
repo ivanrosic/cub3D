@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/09/12 14:42:22 by user42       #+#   ##    ##    #+#       */
-/*   Updated: 2020/10/28 03:21:11 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/10/29 14:34:42 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -29,6 +29,7 @@ void	ft_init_dir(char pos, t_mmlx *mmlx)
 
 void	ft_init_mlx_struct(t_parse *parse,t_mmlx *mmlx)
 {
+	mmlx->map = parse->map;
 	mmlx->res_x = parse->res_x;
 	mmlx->res_y = parse->res_y;
 	mmlx->pos_x = parse->pos_player_x;

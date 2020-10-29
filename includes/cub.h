@@ -6,7 +6,7 @@
 /*   By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/26 12:34:49 by ivanrosic     #+#   ##    ##    #+#       */
-/*   Updated: 2020/10/28 03:21:15 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/10/29 14:34:46 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -42,6 +42,7 @@ typedef struct	s_parse
 
 typedef struct	s_mmlx
 {
+	int **map;
 	int res_x;
 	int res_y;
 	void *mlx;
@@ -78,6 +79,10 @@ typedef struct	s_mmlx
 	int drawend;
 	int xpos;
 	int side;
+	char n[9];
+	char s[9];
+	char e[9];
+	char w[9];
 
 
 	}			t_mmlx;
