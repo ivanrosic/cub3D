@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/10/26 19:45:22 by user42       #+#   ##    ##    #+#       */
-/*   Updated: 2020/11/19 22:13:15 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/11/29 01:05:34 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -19,6 +19,28 @@ int  ft_exit(int key, t_mmlx *mmlx)
 	dprintf(1, "key:%d\n", key);
 	if (key == 65307)
 		exit(0);
+	if (key == 65361)
+	{
+		mmlx->angle = mmlx->angle + 0.1;
+		ft_angle_to_dir(mmlx);
+	}
+	else if (key == 65363)
+	{
+		mmlx->angle = mmlx->angle - 0.1;
+		ft_angle_to_dir(mmlx);
+	}
+	if (key == 97)
+		mmlx->pos_x = mmlx->pos_x - 0.1;
+	else if (key == 100)
+		mmlx->pos_x = mmlx->pos_x + 0.1;
+	if (key == 115)
+	{
+		mmlx->pos_y = mmlx->pos_y + 0.3;
+	}
+	else if (key == 119)
+	{
+		mmlx->pos_y = mmlx->pos_y - 0.1;
+	}
 	return(0);
 }
 
@@ -107,25 +129,108 @@ void	ft_calcul_draw(t_mmlx *mmlx)
 	mmlx->drawend = (mmlx->lineheight / 2) + (mmlx->res_y / 2);
 	if(mmlx->drawend >= mmlx->res_y)
 	{	mmlx->drawend = mmlx->res_y - 1;}
-	dprintf(1, "end:%d\n\n",mmlx->drawend);
-	
+
 }
-/*
+
 void	ft_set_colors(t_mmlx *mmlx)
 {
-	mmlx->n = "0x800080";
-	mmlx->s = "0xFF0000";
-	mmlx->e = "0x00FF00";
-	mmlx->w = "0x0000FF";
+	mmlx->n = 0x800080;
+	mmlx->s = 0xFF0000;
+	mmlx->e = 0x00FF00;
+	mmlx->w = 0x0000FF;
 
 
 }
-*/
 
-/*void	ft_verline(int x, t_mmlx mmlx)
+void	ft_calc_text(int x, t_mmlx *mmlx, double wall_x, int *data)
 {
-	
-}*/
+	double step;
+	double texpos;
+	int texx;
+	int texy;
+	int y;
+
+	y = mmlx->drawstart;
+	step = 1.0 * mmlx->textheight / mmlx->lineheight;
+	texpos = (mmlx->drawstart - mmlx->res_y / 2 + mmlx->lineheight / 2) * step;
+	texx = int(wall_x * texwidth);
+	if(side == 0 && mmlx->raydir_x > 0)
+		texx = texwidth - texx - 1;
+	if(side == 1 && mmlx->raydir_y < 0)
+		texx = texwidth - texx - 1;
+	while(y < mmlx->drawend)
+	{	
+		if(texpos > (mmlx->texheight - 1))
+			texy = textheight - 1;
+		else
+			texy = texpos;
+		texpos += step;
+		mmlx->data_adress[x + y * mmlx->res_x] = data[texx + texy * mmlx->texwidth];
+		y++;
+	}
+}
+
+void	ft_ew_text(int x, t_mmlx *mmlx)
+{
+	double wall_x;
+
+	wall_x = mmlx->pos_y + mmlx->wall_dist * mmlx->ray_dir_y;
+	wall_x -= floor(mmlx->wall_x);
+
+	if (mmlx->map_x < mmlx->pos_x)
+		ft_calc_text(x, mmlx, wall_x,mmlx->ndata);
+	else
+		ft_calc_text(x, mmlx, wall_x,mmlx->sdata);
+}
+
+void	ft_ns_text(int x, t_mmlx *mmlx)
+{
+	double wall_x;
+
+	wall_x = mmlx->pos_x + mmlx->wall_dist * mmlx->ray_dir_x;
+	wall_x -= floor(mmlx->wall_x);
+
+	if (mmlx->map_y < mmlx->pos_y)
+		ft_calc_text(x, mmlx, wall_x,mmlx->ndata);
+	else
+		ft_calc_text(x, mmlx, wall_x,mmlx->sdata);
+}
+
+void	ft_verline(int x, t_mmlx *mmlx)
+{
+	int start;
+	int zero = 0;
+
+	start = mmlx->drawstart;
+	while(zero <= start)
+	{
+		mmlx->data_adress[(x) + (zero * mmlx->res_x)] = 0x00000000;
+		zero++;
+	}
+	while(start <= mmlx->drawend)
+	{
+		if (mmlx->side == 1)
+		{
+			ft_ns_text(x, mmlx);
+			/*if (mmlx->map_y < mmlx->pos_y)
+			mmlx->data_adress[(x) + (start * mmlx->res_x)] = mmlx->n;
+			else
+				mmlx->data_adress[(x) + (start * mmlx->res_x)] = mmlx->s;
+			*/
+		}
+		else
+		{
+			ft_ew_text(x, mmlx);
+		}
+	}
+	start = mmlx->drawend;
+	while(start <= mmlx->res_y)
+	{
+		mmlx->data_adress[(x) + (start * mmlx->res_x)] = 0x00FFFFFF;
+		//mlx_pixel_put(mmlx->mlx, mmlx->win, x, start, 0x00FFFFFF);
+		start++;
+	}
+}
 
 int ft_fct(t_mmlx *mmlx)
 {
@@ -134,19 +239,15 @@ int ft_fct(t_mmlx *mmlx)
 	x = 0;
 	while(x < mmlx->res_x)
 	{
-		dprintf(1, "----------------------------------------------------\n");
 		ft_init_begin(mmlx, x);
 		ft_init_side_dist(mmlx);
 		ft_hit(mmlx);
 		ft_walldist(mmlx);
 		ft_calcul_draw(mmlx);
-		dprintf(1, "-----------------------------------------------------\n\n");
-	//	ft_set_colors(mmlx);
-//	ft_verline(x, mmlx);
+		ft_verline(x, mmlx);
 		x++;
 	}
-	//	mmlx->data_adress[50000 + i] = 0x00ff00;
-	mlx_put_image_to_window(mmlx->mlx, mmlx->win, mmlx->image, 0, 0);
+	mlx_put_image_to_window(mmlx->mlx, mmlx->win, mmlx->image,0,0);
 	return (0);	
 }
 
@@ -156,6 +257,7 @@ void	ft_open_window(t_parse *parse)
 
 	mmlx = malloc(sizeof(t_mmlx));
 	ft_init_mlx_struct(parse, mmlx);
+	ft_set_colors(mmlx);
 	mlx_hook(mmlx->win, 2, (1L << 0), ft_exit, mmlx);
 	mlx_loop_hook(mmlx->mlx, ft_fct, mmlx);
 	mlx_loop(mmlx->mlx); 

@@ -6,7 +6,7 @@
 /*   By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/26 12:34:49 by ivanrosic     #+#   ##    ##    #+#       */
-/*   Updated: 2020/11/19 22:16:27 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/11/29 01:05:40 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -71,20 +71,20 @@ typedef struct	s_mmlx
 	double raydir_y;
 	double camera_x;
 	double wall_dist;
+	double texwidth;
 	int step_y;
 	int step_x;
 	int hit;
 	int lineheight;
+	int textheight;
 	int drawstart;
 	int drawend;
 	int xpos;
 	int side;
-	char n[9];
-	char s[9];
-	char e[9];
-	char w[9];
-
-
+	int *ndata;
+	int *sdata;
+	int *edata;
+	int *wdata;
 	}			t_mmlx;
 
 int		ft_parse(int ac, char **av, t_parse *parse);
