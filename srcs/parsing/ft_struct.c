@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/09/12 14:42:22 by user42       #+#   ##    ##    #+#       */
-/*   Updated: 2020/11/29 01:05:36 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/12/01 00:40:55 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -27,6 +27,18 @@ void	ft_init_dir(char pos, t_mmlx *mmlx)
 	ft_angle_to_dir(mmlx);
 }
 
+void	ft_load_texture(t_parse *parse,t_mmlx *mmlx)
+{
+	mmlx->img[0].image = mlx_xpm_file_to_image(mmlx->mlx, parse->pc[0], &mmlx->img[0].width, &mmlx->img[0].height);
+	mmlx->img[1].image = mlx_xpm_file_to_image(mmlx->mlx, parse->pc[1], &mmlx->img[1].width, &mmlx->img[1].height);
+	mmlx->img[2].image = mlx_xpm_file_to_image(mmlx->mlx, parse->pc[2], &mmlx->img[2].width, &mmlx->img[2].height);
+	mmlx->img[3].image = mlx_xpm_file_to_image(mmlx->mlx, parse->pc[3], &mmlx->img[3].width, &mmlx->img[3].height);
+	mmlx->img[0].data = (int *)mlx_get_data_addr(mmlx->img[0].image, &mmlx->img[0].bpp, &mmlx->img[0].size_line, &mmlx->img[0].endian);
+	mmlx->img[1].data = (int *)mlx_get_data_addr(mmlx->img[1].image, &mmlx->img[1].bpp, &mmlx->img[1].size_line, &mmlx->img[1].endian);
+	mmlx->img[3].data = (int *)mlx_get_data_addr(mmlx->img[3].image, &mmlx->img[3].bpp, &mmlx->img[3].size_line, &mmlx->img[3].endian);
+	mmlx->img[2].data = (int *)mlx_get_data_addr(mmlx->img[2].image, &mmlx->img[2].bpp, &mmlx->img[2].size_line, &mmlx->img[2].endian);
+}
+
 void	ft_init_mlx_struct(t_parse *parse,t_mmlx *mmlx)
 {
 	mmlx->map = parse->map;
@@ -36,6 +48,7 @@ void	ft_init_mlx_struct(t_parse *parse,t_mmlx *mmlx)
 	mmlx->pos_y = parse->pos_player_y;
 	ft_init_dir(parse->pos, mmlx);
 	mmlx->mlx = mlx_init();
+	ft_load_texture(parse, mmlx);
 	mmlx->image = mlx_new_image(mmlx->mlx, parse->res_x, parse->res_y);
 mmlx->data_adress = (int *)mlx_get_data_addr(mmlx->image, &mmlx->bpp, &mmlx->sl, &mmlx->endian);
 	mmlx->win = mlx_new_window(mmlx->mlx, parse->res_x, parse->res_y,"Raycaster");

@@ -6,7 +6,7 @@
 /*   By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/26 12:34:49 by ivanrosic     #+#   ##    ##    #+#       */
-/*   Updated: 2020/11/29 01:05:40 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/11/30 19:05:50 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -39,6 +39,19 @@ typedef struct	s_parse
 	int pos_player_y;
 	char pos;
 }				t_parse;
+
+typedef struct s_img
+{
+		int width;
+		int height;
+		void *image;
+		int bpp;
+		int size_line;
+		int endian;
+		int *data;
+
+
+}				t_img;
 
 typedef struct	s_mmlx
 {
@@ -81,11 +94,9 @@ typedef struct	s_mmlx
 	int drawend;
 	int xpos;
 	int side;
-	int *ndata;
-	int *sdata;
-	int *edata;
-	int *wdata;
-	}			t_mmlx;
+	t_img img[4];
+}			t_mmlx;
+
 
 int		ft_parse(int ac, char **av, t_parse *parse);
 void	ft_init_struct(t_parse *parse);
