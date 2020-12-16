@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/10/26 19:45:22 by user42       #+#   ##    ##    #+#       */
-/*   Updated: 2020/12/01 04:50:35 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/12/02 04:43:15 by user42      ###    #+. /#+    ###.fr     */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,7 +15,6 @@
 
 int  ft_exit(int key, t_mmlx *mmlx)
 {
-	(void)mmlx;
 	dprintf(1, "key:%d\n", key);
 	if (key == 65307)
 		exit(0);
@@ -30,16 +29,32 @@ int  ft_exit(int key, t_mmlx *mmlx)
 		ft_angle_to_dir(mmlx);
 	}
 	if (key == 97)
-		mmlx->pos_x = mmlx->pos_x - 0.1;
+	{
+		if(mmlx->map[(int)mmlx->pos_y][(int)(mmlx->pos_x + 0.5 * mmlx->direction_y)] == 48)
+			mmlx->pos_x += 0.25 * mmlx->direction_y;
+		if(mmlx->map[(int)(mmlx->pos_y - 0.5 * mmlx->direction_x)][(int)mmlx->pos_x] == 48)
+			mmlx->pos_y -= 0.25 * mmlx->direction_x;
+	}
 	else if (key == 100)
-		mmlx->pos_x = mmlx->pos_x + 0.1;
+	{
+		if(mmlx->map[(int)mmlx->pos_y][(int)(mmlx->pos_x - 0.5 * mmlx->direction_y)] == 48)
+			mmlx->pos_x -= 0.25 * mmlx->direction_y;
+		if(mmlx->map[(int)(mmlx->pos_y + 0.5 * mmlx->direction_x)][(int)mmlx->pos_x] == 48)
+			mmlx->pos_y += 0.25 * mmlx->direction_x;
+			}
 	if (key == 115)
 	{
-		mmlx->pos_y = mmlx->pos_y + 0.3;
+		if(mmlx->map[(int)mmlx->pos_y][(int)(mmlx->pos_x - 0.5 * mmlx->direction_x)] == 48)
+			mmlx->pos_x -= 0.25 * mmlx->direction_x;
+		if(mmlx->map[(int)(mmlx->pos_y - 0.5 * mmlx->direction_y)][(int)mmlx->pos_x] == 48)
+			mmlx->pos_y -= 0.25 * mmlx->direction_y;
 	}
 	else if (key == 119)
 	{
-		mmlx->pos_y = mmlx->pos_y - 0.1;
+		if(mmlx->map[(int)mmlx->pos_y][(int)(mmlx->pos_x + 0.5 * mmlx->direction_x)] == 48)
+			mmlx->pos_x += 0.25 * mmlx->direction_x;
+		if(mmlx->map[(int)(mmlx->pos_y + 0.5 * mmlx->direction_y)][(int)mmlx->pos_x] == 48)
+			mmlx->pos_y += 0.25 * mmlx->direction_y;
 	}
 	return(0);
 }
@@ -54,10 +69,6 @@ void	ft_init_begin(t_mmlx *mmlx, int x)
 	mmlx->hit = 0;
 	mmlx->map_x = (int)mmlx->pos_x;
 	mmlx->map_y = (int)mmlx->pos_y;
-	//dprintf(1,"posx-y = %f; %f\ndirectionx-y = %f; %f\nplanex-y = %f; %f\n", mmlx->pos_x, mmlx->pos_y, mmlx->direction_x, mmlx->direction_y, mmlx->plane_x, mmlx->plane_y);
-	//dprintf(1,"deltadistx-y = %f; %f\nmapx-y  = %d; %d\n", mmlx->deltadist_x, mmlx->deltadist_y, mmlx->map_x, mmlx->map_y);
-	//dprintf(1,"x = %d\ncamerax = %f\nraydirx-y = %f; %f\n", x, mmlx->camera_x, mmlx->raydir_x, mmlx->raydir_y);
-	//dprintf(1,"deltadistx-y = %f; %f\nmapx-y  = %d; %d\n", mmlx->deltadist_x, mmlx->deltadist_y, mmlx->map_x, mmlx->map_y);
 }
 
 void	ft_init_side_dist(t_mmlx *mmlx)
@@ -82,7 +93,6 @@ void	ft_init_side_dist(t_mmlx *mmlx)
 		mmlx->step_y = 1;
 		mmlx->sidedist_y = (mmlx->map_y + 1.0 - mmlx->pos_y) * mmlx->deltadist_y;
 	}
-	//dprintf(1,"sidedistx-y = %f; %f\nstepx-y  = %d; %d\n", mmlx->sidedist_x, mmlx->sidedist_y, mmlx->step_x, mmlx->step_y);
 
 }
 
@@ -105,28 +115,23 @@ void	ft_hit(t_mmlx *mmlx)
 		if(mmlx->map[mmlx->map_y][mmlx->map_x] > 48)
 			mmlx->hit = 1;
 	}
-	//dprintf(1,"(2)sidedistx-y = %f; %f\n(2)mapx-y  = %d; %d\n", mmlx->sidedist_x, mmlx->sidedist_y, mmlx->map_x, mmlx->map_y);
-	//dprintf(1,"map[mapy][mapx] = %d\n", mmlx->map[mmlx->map_y][mmlx->map_x]);
 }
 
 void	ft_walldist(t_mmlx *mmlx)
 {
-	//dprintf(1, "side = %d\n", mmlx->side);
-	//dprintf(1, "mapy = %d\nposy = %f\nstepy = %d\nraydiry = %f\n", mmlx->map_y, mmlx->pos_y, mmlx->step_y, mmlx->raydir_y);
 	if(mmlx->side == 0)
 		mmlx->wall_dist = (mmlx->map_x - mmlx->pos_x + (1 - mmlx->step_x) / 2) / mmlx->raydir_x;
 	else
 		mmlx->wall_dist = (mmlx->map_y - mmlx->pos_y + (1 - mmlx->step_y) / 2) / mmlx->raydir_y;
-	//dprintf(1, "walldist = %f\n", mmlx->wall_dist);
 }
 
 void	ft_calcul_draw(t_mmlx *mmlx)
 {
 	mmlx->lineheight = (int)(mmlx->res_y / mmlx->wall_dist);
 	mmlx->drawstart = (-mmlx->lineheight / 2) + (mmlx->res_y / 2);
+	mmlx->drawend = (mmlx->lineheight / 2) + (mmlx->res_y / 2);
 	if(mmlx->drawstart < 0)
 		mmlx->drawstart = 0;
-	mmlx->drawend = (mmlx->lineheight / 2) + (mmlx->res_y / 2);
 	if(mmlx->drawend >= mmlx->res_y)
 	{	mmlx->drawend = mmlx->res_y - 1;}
 
@@ -200,11 +205,6 @@ void	ft_verline(int x, t_mmlx *mmlx)
 	if (mmlx->side == 1)
 	{
 		ft_ns_text(x, mmlx);
-		/*if (mmlx->map_y < mmlx->pos_y)
-		  mmlx->data_adress[(x) + (start * mmlx->res_x)] = mmlx->n;
-		  else
-		  mmlx->data_adress[(x) + (start * mmlx->res_x)] = mmlx->s;
-		 */
 	}
 	else
 	{
@@ -214,7 +214,6 @@ void	ft_verline(int x, t_mmlx *mmlx)
 	while(start <= mmlx->res_y)
 	{
 		mmlx->data_adress[(x) + (start * mmlx->res_x)] = 0x00FFFFFF;
-		//mlx_pixel_put(mmlx->mlx, mmlx->win, x, start, 0x00FFFFFF);
 		start++;
 	}
 }
