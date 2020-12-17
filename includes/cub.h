@@ -6,7 +6,7 @@
 /*   By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/26 12:34:49 by ivanrosic     #+#   ##    ##    #+#       */
-/*   Updated: 2020/12/02 04:43:18 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/12/17 15:55:56 by ivarosic         ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -22,7 +22,6 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
-# include "../libmlx/mlx.h"
 
 typedef struct	s_parse
 {	
@@ -106,6 +105,8 @@ char	*ft_strjoin_f(char *s1, char const *s2);
 void	ft_open_window(t_parse *parse);
 int ft_map_char_to_int(t_parse *parse);
 void	ft_angle_to_dir(t_mmlx *mmlx);
+void	ft_key_press(t_mmlx *mmlx);
+void	ft_verline(int x, t_mmlx *mmlx);
 
 
 #endif

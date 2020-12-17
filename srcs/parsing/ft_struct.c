@@ -6,13 +6,37 @@
 /*   By: user42 <user42@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/09/12 14:42:22 by user42       #+#   ##    ##    #+#       */
-/*   Updated: 2020/12/01 00:40:55 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/12/17 15:54:07 by ivarosic         ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
 
 #include "../../includes/cub.h"
 
+
+void	ft_free_for_exit_parse(t_parse *parse)
+{
+	if(!(parse))
+	{
+		if(!(parse->str))
+			free(parse->str);
+		if(!(parse->pc))
+		{
+			if(!(parse->pc[0]))
+				free(parse->pc[0]);
+			if(!(parse->pc[1]))
+				free(parse->pc[1]);
+			if(!(parse->pc[2]))
+				free(parse->pc[2]);
+			if(!(parse->pc[3]))
+				free(parse->pc[3]);
+		free(parse->pc);
+		}
+		if(!(parse->sprite))
+			free(parse->sprite);
+		free(parse);
+	}
+}
 
 void	ft_init_dir(char pos, t_mmlx *mmlx)
 {
@@ -50,7 +74,7 @@ void	ft_init_mlx_struct(t_parse *parse,t_mmlx *mmlx)
 	mmlx->mlx = mlx_init();
 	ft_load_texture(parse, mmlx);
 	mmlx->image = mlx_new_image(mmlx->mlx, parse->res_x, parse->res_y);
-mmlx->data_adress = (int *)mlx_get_data_addr(mmlx->image, &mmlx->bpp, &mmlx->sl, &mmlx->endian);
+	mmlx->data_adress = (int *)mlx_get_data_addr(mmlx->image, &mmlx->bpp, &mmlx->sl, &mmlx->endian);
 	mmlx->win = mlx_new_window(mmlx->mlx, parse->res_x, parse->res_y,"Raycaster");
 }
 
