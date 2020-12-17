@@ -6,7 +6,7 @@
 #    By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+      #
 #                                                  #+#   #+    #+    #+#       #
 #    Created: 2020/02/26 15:48:26 by ivanrosic     #+#   ##    ##    #+#       #
-#    Updated: 2020/10/27 14:17:22 by user42      ###    #+. /#+    ###.fr      #
+#    Updated: 2020/12/17 16:02:19 by ivarosic         ###   ########lyon.fr    #
 #                                                          /                   #
 #                                                         /                    #
 # **************************************************************************** #
@@ -26,6 +26,9 @@ SRC_LIST		=	parsing/ft_parse.c			\
 					parsing/ft_mlx.c			\
 					parsing/ft_map_char_to_int.c\
 					parsing/ft_math.c			\
+					parsing/ft_inti_on_mlx.c	\
+					parsing/texture.c			\
+					parsing/key.c				\
 
 INCS_LIST		=	cub.h
 

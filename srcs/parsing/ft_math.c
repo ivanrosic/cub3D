@@ -6,7 +6,7 @@
 /*   By: user42 <user42@student.le-101.fr>          +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/10/27 14:15:06 by user42       #+#   ##    ##    #+#       */
-/*   Updated: 2020/12/02 04:10:56 by user42      ###    #+. /#+    ###.fr     */
+/*   Updated: 2020/12/17 16:06:16 by ivarosic         ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -15,13 +15,13 @@
 
 void	ft_angle_to_plane(t_mmlx *mmlx)
 {
-		mmlx->plane_x=cos(mmlx->angle - M_PI_2);
-		mmlx->plane_y=-1*sin(mmlx->angle - M_PI_2);
-	}
+	mmlx->plane_x = cos(mmlx->angle - M_PI_2);
+	mmlx->plane_y = -1 * sin(mmlx->angle - M_PI_2);
+}
 
 void	ft_angle_to_dir(t_mmlx *mmlx)
 {
-		mmlx->direction_x=cos(mmlx->angle);
-		mmlx->direction_y=-1*sin(mmlx->angle);
-		ft_angle_to_plane(mmlx);
+	mmlx->direction_x = cos(mmlx->angle);
+	mmlx->direction_y = -1 * sin(mmlx->angle);
+	ft_angle_to_plane(mmlx);
 }

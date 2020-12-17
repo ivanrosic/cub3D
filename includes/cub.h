@@ -6,7 +6,7 @@
 /*   By: ivanrosic <ivanrosic@student.le-101>       +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2020/02/26 12:34:49 by ivanrosic     #+#   ##    ##    #+#       */
-/*   Updated: 2020/12/17 15:55:56 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 16:01:07 by ivarosic         ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -107,6 +107,7 @@ int ft_map_char_to_int(t_parse *parse);
 void	ft_angle_to_dir(t_mmlx *mmlx);
 void	ft_key_press(t_mmlx *mmlx);
 void	ft_verline(int x, t_mmlx *mmlx);
-
+void	ft_init_side_dist(t_mmlx *mmlx);
+void	ft_init_begin(t_mmlx *mmlx, int x);
 
 #endif
